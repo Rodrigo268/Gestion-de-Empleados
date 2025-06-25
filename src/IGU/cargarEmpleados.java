@@ -317,21 +317,26 @@ private ArrayList<Empleado> leerEmpleadosDesdeArchivo() {
           
             if (nombre.isEmpty()|| apellido.isEmpty()|| puesto.isEmpty()|| sueldo.isEmpty()){
                 JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.");
-            } else {
-                String mensaje = "Empleado cargado:\nNombre: " + nombre + 
+            }
+                
+                        
+            
+            try{
+            double sueldoEmp = Double.parseDouble(sueldo);
+            String mensaje = "Empleado cargado:\nNombre: " + nombre + 
                                   "\nApellido: " + apellido + 
                                   "\nPuesto: " + puesto + 
                                   "\nSueldo: $" +sueldo +
                                   "\n Maquinaria que opera: " + nomMaquina +
                                   "\nSucursal: " + zona;
-                javax.swing.JOptionPane.showMessageDialog(this, mensaje);
-                        
-            }
-            double sueldoEmp = Double.parseDouble(sueldo);
+               JOptionPane.showMessageDialog(this, mensaje);
             id = id + 1;
             Empleado emp = new Empleado(id,nombre, apellido, puesto, sueldoEmp,nomMaquina,zona);
             listaDeEmpleados.add(emp);
             guardarEmpleadosEnArchivo();
+            }catch(Exception e){
+                JOptionPane.showMessageDialog(this, "Ingrese solo números en sueldo");
+            }
             
     }//GEN-LAST:event_btnAgregarEmpleadoActionPerformed
 private void limpiarCampos(){
@@ -368,7 +373,7 @@ private void limpiarCampos(){
     }//GEN-LAST:event_txtApellidoActionPerformed
 private void cargarOpcionesComboMaquinaria() {
     cbxMaquinaria.removeAllItems();
-    cbxMaquinaria.addItem("Camiones");
+    cbxMaquinaria.addItem("Transporte");
     cbxMaquinaria.addItem("Maquinaria de Producción");
     cbxMaquinaria.addItem("Maquinaria de Embalaje");
 }

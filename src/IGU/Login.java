@@ -42,7 +42,7 @@ public class Login extends javax.swing.JFrame {
 
         btnIniciar.setBackground(new java.awt.Color(34, 70, 46));
         btnIniciar.setForeground(new java.awt.Color(255, 255, 255));
-        btnIniciar.setText("Iniciar Sesion");
+        btnIniciar.setText("Iniciar Sesión");
         btnIniciar.setBorder(null);
         btnIniciar.setBorderPainted(false);
         btnIniciar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
