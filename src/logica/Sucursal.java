@@ -1,6 +1,8 @@
 package logica;
 
-public class Sucursal {
+import java.io.Serializable;
+
+public class Sucursal implements Serializable{
     int idSucursal;
     String zona;
 

@@ -8,9 +8,12 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import IGU.Menu;
+import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
-        
+import java.util.HashSet;
+import java.util.Set;        
+
 import logica.Maquinaria;
 import logica.Sucursal;
 import logica.Pais;
@@ -446,16 +449,38 @@ private void limpiarCampos(){
     }//GEN-LAST:event_txtPaisActionPerformed
 private void cargarOpcionesComboMaquinaria() {
     cbxMaquinaria.removeAllItems();
-    cbxMaquinaria.addItem("Transporte");
-    cbxMaquinaria.addItem("Maquinaria de Producción");
-    cbxMaquinaria.addItem("Maquinaria de Embalaje");
+      Set<String> nombresUnicos = new HashSet<>(); 
+
+    try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("maquinarias.dat"))) {
+        while (true) {
+            Maquinaria maq = (Maquinaria) ois.readObject();
+            if (nombresUnicos.add(maq.getNomMaquinaria())) { 
+                cbxMaquinaria.addItem(maq.getNomMaquinaria());
+            }
+        }
+    } catch (EOFException eof) {
+        // Fin del archivo, es normal, no hacer nada
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Cargar Maquinarias");
+    }
 }
 
 private void cargarOpcionesUbicacionSucursal(){
     cbxUbicacionSucursal.removeAllItems();
-    cbxUbicacionSucursal.addItem("San Juan");
-    cbxUbicacionSucursal.addItem("Santa Fe");
-    cbxUbicacionSucursal.addItem("Buenos Aires");
+    Set<String> zonasUnicas = new HashSet<>();
+
+    try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("sucursales.dat"))) {
+        while (true) {
+            logica.Sucursal suc = (logica.Sucursal) ois.readObject();
+            if (zonasUnicas.add(suc.getZona())) {
+                cbxUbicacionSucursal.addItem(suc.getZona());
+            }
+        }
+    }  catch (EOFException eof) {
+        // Fin del archivo, es normal, no hacer nada
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Cargar Sucursales");
+    } 
 }
 
        

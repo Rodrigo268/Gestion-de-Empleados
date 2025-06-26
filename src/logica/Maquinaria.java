@@ -1,7 +1,9 @@
 package logica;
 
+import java.io.Serializable;
 
-public class Maquinaria {
+
+public class Maquinaria implements Serializable{
     int idMaquinaria;
     String nomMaquinaria;
     

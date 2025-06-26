@@ -198,6 +198,7 @@ public class Login extends javax.swing.JFrame {
             menu.setVisible(true);
             menu.setLocationRelativeTo(null);
             this.setVisible(false);
+            return;
         }
 
         File archivoReg = new File("Registrados.dat");
