@@ -10,11 +10,14 @@ import java.io.ObjectOutputStream;
 import IGU.Menu;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
+        
 import logica.Maquinaria;
 import logica.Sucursal;
+import logica.Pais;
 
 public class cargarEmpleados extends javax.swing.JFrame {
     String documento;
+    String nomPais;
     String nombre;
     String apellido;
     String puestoLaboral;
@@ -22,6 +25,7 @@ public class cargarEmpleados extends javax.swing.JFrame {
     
     int idMaquina = 0;
     int idSucursal = 0;
+    int idPais = 0;
     
     ArrayList <Empleado> listaDeEmpleados = new ArrayList<>();
     
@@ -56,7 +60,7 @@ public class cargarEmpleados extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         txtDocumento = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        txtNacionalidad = new javax.swing.JTextField();
+        txtPais = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         btnVolver = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
@@ -140,11 +144,11 @@ public class cargarEmpleados extends javax.swing.JFrame {
 
         jLabel9.setText("Documento");
 
-        jLabel10.setText("Nacionalidad");
+        jLabel10.setText("País");
 
-        txtNacionalidad.addActionListener(new java.awt.event.ActionListener() {
+        txtPais.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNacionalidadActionPerformed(evt);
+                txtPaisActionPerformed(evt);
             }
         });
 
@@ -179,13 +183,13 @@ public class cargarEmpleados extends javax.swing.JFrame {
                                     .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel10))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(67, 67, 67)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtDocumento)
-                            .addComponent(txtNacionalidad, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE))))
+                            .addComponent(txtPais, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -224,7 +228,7 @@ public class cargarEmpleados extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNacionalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtPais, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(9, 9, 9)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -354,16 +358,24 @@ private ArrayList<Empleado> leerEmpleadosDesdeArchivo() {
            apellido = txtApellido.getText();
            puestoLaboral = txtPuestoLaboral.getText();
            sueldo = txtSueldo.getText();
-            
+           nomPais = txtPais.getText();
+           
+           
           String nomMaquina = (String)cbxMaquinaria.getSelectedItem();
           String zona = (String)cbxUbicacionSucursal.getSelectedItem();
           
           
          idMaquina = idMaquina + 1;
          idSucursal = idSucursal + 1;
+         idPais = idPais + 1;
+         
           Maquinaria maquina = new Maquinaria(idMaquina, nomMaquina);
           Sucursal sucursal = new Sucursal(idSucursal, zona);
+          Pais pais = new Pais(idPais, nomPais);
           
+          String maquinaEmp = maquina.getNomMaquinaria();
+          String sucursalEmp = sucursal.getZona();
+          String paisEmp = pais.getNomPais();
           
             if (nombre.isEmpty()|| apellido.isEmpty()|| puestoLaboral.isEmpty()|| sueldo.isEmpty()){
                 JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.");
@@ -374,14 +386,15 @@ private ArrayList<Empleado> leerEmpleadosDesdeArchivo() {
             try{
             double sueldoEmp = Double.parseDouble(sueldo);
             String mensaje = "Empleado cargado:\nDocumento: "+ documento +
+                                 "\n Pais: " + paisEmp +
                                   "\nNombre: " + nombre + 
                                   "\nApellido: " + apellido + 
                                   "\nPuesto: " + puestoLaboral + 
                                   "\nSueldo: $" +sueldo +
-                                  "\n Maquinaria que opera: " + nomMaquina +
-                                  "\nSucursal: " + zona;
+                                  "\n Maquinaria que opera: " + maquinaEmp +
+                                  "\nSucursal: " + sucursalEmp;
                JOptionPane.showMessageDialog(this, mensaje);
-            Empleado emp = new Empleado(documento,nombre, apellido, puestoLaboral, sueldoEmp,nomMaquina,zona);
+            Empleado emp = new Empleado(documento,paisEmp,nombre, apellido, puestoLaboral, sueldoEmp,maquinaEmp,sucursalEmp);
             listaDeEmpleados.add(emp);
             guardarEmpleadosEnArchivo();
             }catch(Exception e){
@@ -391,6 +404,7 @@ private ArrayList<Empleado> leerEmpleadosDesdeArchivo() {
     }//GEN-LAST:event_btnAgregarEmpleadoActionPerformed
 private void limpiarCampos(){
     txtDocumento.setText("");
+    txtPais.setText("");
     txtNombreEmpleado.setText("");
     txtApellido.setText("");
     txtPuestoLaboral.setText("");
@@ -427,9 +441,9 @@ private void limpiarCampos(){
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPuestoLaboralActionPerformed
 
-    private void txtNacionalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNacionalidadActionPerformed
+    private void txtPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPaisActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNacionalidadActionPerformed
+    }//GEN-LAST:event_txtPaisActionPerformed
 private void cargarOpcionesComboMaquinaria() {
     cbxMaquinaria.removeAllItems();
     cbxMaquinaria.addItem("Transporte");
@@ -466,8 +480,8 @@ private void cargarOpcionesUbicacionSucursal(){
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtDocumento;
-    private javax.swing.JTextField txtNacionalidad;
     private javax.swing.JTextField txtNombreEmpleado;
+    private javax.swing.JTextField txtPais;
     private javax.swing.JTextField txtPuestoLaboral;
     private javax.swing.JTextField txtSueldo;
     // End of variables declaration//GEN-END:variables

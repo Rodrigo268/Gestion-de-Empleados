@@ -63,6 +63,7 @@ private void cargarEmpleadosEnTabla() {
         for (Empleado emp : lista) {
             Object[] row = {
                 emp.getDocumento(),
+                emp.getPais(),
                 emp.getNombre(),
                 emp.getApellido(),
                 emp.getPuestoLaboral(),
@@ -113,14 +114,14 @@ private void cargarEmpleadosEnTabla() {
 
             },
             new String [] {
-                "DNI", "Nombre", "Apellido", "Puesto Laboral", "Sueldo", "Maquinaria", "Sucursal"
+                "DNI", "País", "Nombre", "Apellido", "Puesto Laboral", "Sueldo", "Maquinaria", "Sucursal"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -140,6 +141,7 @@ private void cargarEmpleadosEnTabla() {
             tblEmpleados.getColumnModel().getColumn(4).setResizable(false);
             tblEmpleados.getColumnModel().getColumn(5).setResizable(false);
             tblEmpleados.getColumnModel().getColumn(6).setResizable(false);
+            tblEmpleados.getColumnModel().getColumn(7).setResizable(false);
         }
 
         txtTotalSueldos.setForeground(new java.awt.Color(0, 0, 0));
