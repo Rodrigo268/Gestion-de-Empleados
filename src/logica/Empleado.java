@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Empleado implements Serializable {
 
-    int id;
+    String documento;
     String nombre;
     String apellido;
     String puestoLaboral;
@@ -12,10 +12,10 @@ public class Empleado implements Serializable {
     String nomMaquinaria;
     String sucursal;
 
-    public Empleado(int id, String nombre, String apellido,
+    public Empleado(String documento, String nombre, String apellido,
             String puestoLaboral, double sueldo,
             String nomMaquinaria, String sucursal) {
-        this.id = id;
+        this.documento = documento;
         this.nombre = nombre;
         this.apellido = apellido;
         this.puestoLaboral = puestoLaboral;
@@ -24,12 +24,12 @@ public class Empleado implements Serializable {
         this.sucursal = sucursal;
     }
 
-    public int getId() {
-        return id;
+    public String getDocumento() {
+        return documento;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(String documento) {
+        this.documento = documento;
     }
 
     public String getNombre() {

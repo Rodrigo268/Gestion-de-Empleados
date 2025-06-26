@@ -62,7 +62,7 @@ private void cargarEmpleadosEnTabla() {
         //guardando los datos en un objeto
         for (Empleado emp : lista) {
             Object[] row = {
-                emp.getId(),
+                emp.getDocumento(),
                 emp.getNombre(),
                 emp.getApellido(),
                 emp.getPuestoLaboral(),
@@ -113,11 +113,11 @@ private void cargarEmpleadosEnTabla() {
 
             },
             new String [] {
-                "ID", "Nombre", "Apellido", "Puesto Laboral", "Sueldo", "Maquinaria", "Sucursal"
+                "DNI", "Nombre", "Apellido", "Puesto Laboral", "Sueldo", "Maquinaria", "Sucursal"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, false
